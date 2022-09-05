@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/teal_200"
+    android:background="@color/black"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -18,7 +18,7 @@
             android:layout_height="300dp"
             android:layout_marginTop="5dp"/>
     <TextView android:id="@+id/information" android:layout_width="fill_parent"
-        android:layout_height="wrap_content" android:text="info"
+        android:layout_height="wrap_content" android:text="info" android:textColor="@color/white"
         android:gravity="center_horizontal" android:layout_marginTop="20dp"
         android:textSize="20dp" />
 
@@ -32,6 +32,7 @@
                 android:id="@+id/humanR"
                 android:text="Human: 0"
                 android:textSize="20dp"
+                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -39,6 +40,7 @@
                 android:id="@+id/tieR"
                 android:text="Tie: 0"
                 android:textSize="20dp"
+                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
@@ -49,6 +51,7 @@
                 android:id="@+id/androidR"
                 android:text="Tie: 0"
                 android:textSize="20dp"
+                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_height="wrap_content"

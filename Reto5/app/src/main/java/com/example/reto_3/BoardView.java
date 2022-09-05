@@ -12,7 +12,7 @@ import android.view.View;
 
 public class BoardView extends View {
     // Width of the board grid lines
-    public static final int GRID_WIDTH = 6;
+    public static final int GRID_WIDTH = 8;
 
     private Bitmap mHumanBitmap;
     private Bitmap mComputerBitmap;
@@ -51,7 +51,7 @@ public class BoardView extends View {
         int boardWidth = getWidth();
         int boardHeight = getHeight();
         // Make thick, light gray lines
-        mPaint.setColor(Color.LTGRAY);
+        mPaint.setColor(Color.WHITE);
         mPaint.setStrokeWidth(GRID_WIDTH);
         // Draw the two vertical board lines
         int cellWidth = boardWidth / 3;

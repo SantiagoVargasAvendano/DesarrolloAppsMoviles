@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
                     mInfoTextView.setText(R.string.turn_computer);
                     int move = mGame.getComputerMove();
                     setMove(TicTacToeGame.COMPUTER_PLAYER, move);
-                    //mComputerMediaPlayer.start();
+                    mComputerMediaPlayer.start();
                     winner = mGame.checkForWinner();
                 }
                 if (winner == 0)
