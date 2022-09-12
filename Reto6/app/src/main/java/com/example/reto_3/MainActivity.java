@@ -4,7 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -44,13 +44,28 @@ public class MainActivity extends AppCompatActivity {
     private int mResults[];
 
     static final int DIALOG_DIFFICULTY_ID = 0;
-    static final int DIALOG_QUIT_ID = 1;
+    static final int DIALOG_RESET_ID = 1;
     static final int DIALOG_ABOUT_ID = 2;
 
-    private boolean hTurn;
+    private boolean mHTurn;
+
+    private SharedPreferences mPrefs;
 
     MediaPlayer mHumanMediaPlayer;
     MediaPlayer mComputerMediaPlayer;
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putCharArray("board", mGame.getBoardState());
+        outState.putBoolean("mGameOver", mGameOver);
+        outState.putInt("mHumanWins", mResults[0]);
+        outState.putInt("mComputerWins", mResults[2]);
+        outState.putInt("mTies", mResults[1]);
+        outState.putCharSequence("info", mInfoTextView.getText());
+        outState.putBoolean("mHTurn", mHTurn);
+        //outState.putChar("mGoFirst", mGoFirst);
+    }
 
     @Override
     protected void onResume() {
@@ -83,8 +98,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.ai_difficulty:
                 showDialog(DIALOG_DIFFICULTY_ID);
                 return true;
-            case R.id.quit:
-                showDialog(DIALOG_QUIT_ID);
+            case R.id.reset:
+                showDialog(DIALOG_RESET_ID);
                 return true;
             case R.id.about:
                 showDialog(DIALOG_ABOUT_ID);
@@ -125,13 +140,16 @@ public class MainActivity extends AppCompatActivity {
                         });
                 dialog = builder.create();
                 break;
-            case DIALOG_QUIT_ID:
+            case DIALOG_RESET_ID:
                 // Create the quit confirmation dialog
-                builder.setMessage(R.string.quit_question)
+                builder.setMessage(R.string.reset_question)
                         .setCancelable(false)
                         .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                MainActivity.this.finish();
+                                mResults[0] = 0;
+                                mResults[2] = 0;
+                                mResults[1] = 0;
+                                displayScores();
                             }
                         })
                         .setNegativeButton(R.string.no, null);
@@ -171,19 +189,55 @@ public class MainActivity extends AppCompatActivity {
 
         mGameStartsH = new Random();
 
-        startNewGame();
+        mPrefs = getSharedPreferences("ttt_prefs", MODE_PRIVATE);
+
+        // Restore the scores
+        mResults[0] = mPrefs.getInt("mHumanWins", 0);
+        mResults[2] = mPrefs.getInt("mComputerWins", 0);
+        mResults[1] = mPrefs.getInt("mTies", 0);
+
+        if (savedInstanceState == null) {
+            startNewGame();
+        }
+        else {
+            // Restore the game's state
+            mGame.setBoardState(savedInstanceState.getCharArray("board"));
+            mGameOver = savedInstanceState.getBoolean("mGameOver");
+            mInfoTextView.setText(savedInstanceState.getCharSequence("info"));
+            mResults[0] = savedInstanceState.getInt("mHumanWins");
+            mResults[2] = savedInstanceState.getInt("mComputerWins");
+            mResults[1] = savedInstanceState.getInt("mTies");
+            mHTurn = savedInstanceState.getBoolean("mHTurn");
+            //mGoFirst = savedInstanceState.getChar("mGoFirst");
+        }
+        displayScores();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+// Save the current scores
+        SharedPreferences.Editor ed = mPrefs.edit();
+        ed.putInt("mHumanWins", mResults[0]);
+        ed.putInt("mComputerWins", mResults[2]);
+        ed.putInt("mTies", mResults[1]);
+        ed.commit();
+    }
+
+    private void displayScores() {
+        mHumanWinTextView.setText("Human: " + (mResults[0]));
+        mTieWinTextView.setText("Tie: " + (mResults[1]));
+        mAndroidWinTextView.setText("Android: " + (mResults[2]));
+    }
     // Set up the game board.
     private void startNewGame() {
         mGame.clearBoard();
         mBoardView.invalidate(); // Redraw the board
         // Human goes first
         mGameOver = false;
-        boolean t = mGameStartsH.nextBoolean();
         if(!mGameStartsH.nextBoolean()){
             mInfoTextView.setText(R.string.first_computer);
-            hTurn = false;
+            mHTurn = false;
             int move = mGame.getComputerMove();
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -193,11 +247,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                     mComputerMediaPlayer.start();
                     mInfoTextView.setText(R.string.turn_human);
-                    hTurn = true;
+                    mHTurn = true;
                 }
             }, 1500);
         }else{
-            hTurn = true;
+            mHTurn = true;
             mInfoTextView.setText(R.string.first_human);
         }
     } // End of startNewGame
@@ -217,10 +271,10 @@ public class MainActivity extends AppCompatActivity {
             int col = (int) event.getX() / mBoardView.getBoardCellWidth();
             int row = (int) event.getY() / mBoardView.getBoardCellHeight();
             int pos = row * 3 + col;
-            if(hTurn){
+            if(mHTurn){
                 if (!mGameOver && setMove(TicTacToeGame.HUMAN_PLAYER, pos)){
                     setMove(TicTacToeGame.HUMAN_PLAYER, pos);
-                    hTurn = false;
+                    mHTurn = false;
                     mHumanMediaPlayer.start();
                     // If no winner yet, let the computer make a move
                     int winner = mGame.checkForWinner();
@@ -234,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
                                     mBoardView.invalidate();
                                 }
                                 mComputerMediaPlayer.start();
-                                hTurn = true;
+                                mHTurn = true;
                                 int winner = mGame.checkForWinner();
                                 if (winner == 0)
                                     mInfoTextView.setText(R.string.turn_human);
