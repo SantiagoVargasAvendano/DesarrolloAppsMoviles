@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:667254066839:android:6f3e7a54aea2d4ee5863d2",
+        "mobilesdk_app_id": "1:667254066839:android:1717d4467ff9ff4b5863d2",
         "android_client_info": {
-          "package_name": "tictactoe.unal.dadm"
+          "package_name": "com.example.reto_3"
         }
       },
       "oauth_client": [
