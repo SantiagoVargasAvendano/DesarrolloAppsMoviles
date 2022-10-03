@@ -5,12 +5,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -22,7 +20,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String CONTACTS_COLUMN_URL = "url";
     public static final String CONTACTS_COLUMN_PAS = "prod_serv";
     public static final String CONTACTS_COLUMN_PHONE = "phone";
-    public static final String CONTACTS_COLUMN_CLASSIF = "classification"; // consultoría, desarrollo a la medida y/o fábrica de software.
+    public static final String CONTACTS_COLUMN_CLASSIF = "classification";
     private HashMap hp;
 
     public DBHelper(Context context) {
@@ -97,6 +95,43 @@ public class DBHelper extends SQLiteOpenHelper {
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from contacts", null );
+        res.moveToFirst();
+
+        while(res.isAfterLast() == false){
+            array_list.add(res.getString(res.getColumnIndex(CONTACTS_COLUMN_NAME)));
+            res.moveToNext();
+        }
+        return array_list;
+    }
+
+    @SuppressLint("Range")
+    public ArrayList<String> filters(String name, Boolean cons , Boolean desa, Boolean fabr) {
+        ArrayList<String> array_list = new ArrayList<String>();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "select * from contacts";
+        if(!name.equals("")){
+            query +=  " where name=\"" + name + "\"";
+            if(cons) query +=  " and classification=\"consultoría\"";
+            if(desa) query +=  " or classification=\"desarrollo a la medida\"";
+            if(fabr) query +=  " or classification=\"fábrica de software\"";
+        }else{
+            if(cons){
+                query +=  " where classification=\"consultoría\"";
+                if(desa) query +=  " or classification=\"desarrollo a la medida\"";
+                if(fabr) query +=  " or classification=\"fábrica de software\"";
+            }else{
+                if(desa){
+                    query +=  " where classification=\"desarrollo a la medida\"";
+                    if(fabr) query +=  " or classification=\"fábrica de software\"";
+                }else{
+                    if(fabr) query +=  " where classification=\"fábrica de software\"";
+                }
+            }
+        }
+
+        Cursor res =  db.rawQuery( query, null );
         res.moveToFirst();
 
         while(res.isAfterLast() == false){

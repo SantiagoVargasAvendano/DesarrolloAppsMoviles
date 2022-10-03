@@ -27,15 +27,74 @@
         android:textSize="35dp"
         android:textColor="#ff16ff01" />
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:id="@+id/filters">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Filtros: "
+            android:id="@+id/textView3"
+            android:textSize="20dp" />
+
+        <Spinner
+            android:id="@+id/filterClassification"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@+id/textView3"
+            android:layout_alignLeft="@+id/textView4"
+            android:background="@android:drawable/btn_dropdown"
+            android:ems="10"
+            android:spinnerMode="dropdown" />
+
+        <CheckBox
+            android:id="@+id/checkBox1"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="0dp"
+            android:layout_below="@+id/filterClassification"
+            android:text="consultoría" />
+
+        <CheckBox
+            android:id="@+id/checkBox2"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="100dp"
+            android:layout_below="@+id/filterClassification"
+            android:text="desarrollo" />
+
+        <CheckBox
+            android:id="@+id/checkBox3"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="200dp"
+            android:layout_below="@+id/filterClassification"
+            android:text="software" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/checkBox3"
+            android:text="Filtrar" />
+
+    </RelativeLayout>
+
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/filters"
         android:layout_centerVertical="true"
-        android:layout_margin="20dp">
+        android:layout_margin="20dp"
+        android:divider="#f00"
+        android:dividerHeight="1dp">
     </ListView>
+
 
     <!--<ScrollView
         android:layout_width="wrap_content"

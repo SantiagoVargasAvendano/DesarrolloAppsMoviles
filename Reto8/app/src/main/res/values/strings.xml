@@ -17,4 +17,9 @@
     <string name="deleteContact">Are you sure, you want to delete it.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string-array name="classifications">
+        <item>consultoría</item>
+        <item>desarrollo a la medida</item>
+        <item>fábrica de software</item>
+    </string-array>
 </resources>

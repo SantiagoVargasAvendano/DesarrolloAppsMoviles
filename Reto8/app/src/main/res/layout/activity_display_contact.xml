@@ -111,6 +111,7 @@
             android:ems="10"
             android:inputType="phone|text" />
 
+<!--
         <EditText
             android:id="@+id/editTextClassification"
             android:layout_width="wrap_content"
@@ -119,6 +120,18 @@
             android:layout_below="@+id/editTextProdServ"
             android:ems="10"
             android:inputType="none" />
+-->
+
+        <Spinner
+            android:id="@+id/editTextClassification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            android:layout_alignLeft="@+id/editTextUrl"
+            android:layout_below="@+id/editTextProdServ"
+            android:ems="10"
+            android:entries="@array/classifications"/>
 
         <TextView
             android:id="@+id/textView6"
@@ -137,6 +150,6 @@
             android:layout_alignParentBottom="true"
             android:onClick="run"
             android:text="@string/save" />
-        
+
     </RelativeLayout>
 </ScrollView>

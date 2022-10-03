@@ -17,7 +17,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +31,7 @@ public class DisplayContact extends AppCompatActivity {
     TextView email;
     TextView url;
     TextView prod_serv;
-    TextView classification;
+    Spinner classification;
     int id_To_Update = 0;
 
     @Override
@@ -41,7 +43,7 @@ public class DisplayContact extends AppCompatActivity {
         email = (TextView) findViewById(R.id.editTextEmail);
         url = (TextView) findViewById(R.id.editTextUrl);
         prod_serv = (TextView) findViewById(R.id.editTextProdServ);
-        classification = (TextView) findViewById(R.id.editTextClassification);
+        classification = (Spinner) findViewById(R.id.editTextClassification);
 
         mydb = new DBHelper(this);
 
@@ -88,8 +90,15 @@ public class DisplayContact extends AppCompatActivity {
                 prod_serv.setFocusable(false);
                 prod_serv.setClickable(false);
 
-                classification.setText((CharSequence)classif1);
-                classification.setFocusable(false);
+                //Toast.makeText(getApplicationContext(), classif1, Toast.LENGTH_SHORT).show();
+                if(classif1.equals("consultoría")){
+                    classification.setSelection(0);
+                }else if (classif1.equals("desarrollo a la medida")){
+                    classification.setSelection(1);
+                }else {
+                    classification.setSelection(2);
+                }
+                classification.setEnabled(false);
                 classification.setClickable(false);
             }
         }
@@ -179,7 +188,7 @@ public class DisplayContact extends AppCompatActivity {
             if(Value>0){
                 if(mydb.updateContact(id_To_Update,name.getText().toString(),
                         phone.getText().toString(), email.getText().toString(),
-                        url.getText().toString(), prod_serv.getText().toString(), classification.getText().toString())){
+                        url.getText().toString(), prod_serv.getText().toString(), classification.getSelectedItem().toString())){
                     Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                     startActivity(intent);
@@ -188,7 +197,7 @@ public class DisplayContact extends AppCompatActivity {
                 }
             } else{
                 if(mydb.insertContact(name.getText().toString(), phone.getText().toString(),
-                        email.getText().toString(), url.getText().toString(), prod_serv.getText().toString(), classification.getText().toString())){
+                        email.getText().toString(), url.getText().toString(), prod_serv.getText().toString(), classification.getSelectedItem().toString())){
                     Toast.makeText(getApplicationContext(), "done",
                             Toast.LENGTH_SHORT).show();
                 } else{
