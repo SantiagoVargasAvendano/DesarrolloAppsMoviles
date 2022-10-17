@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Display">
+
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Información"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:textSize="40dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:layout_below="@+id/titulo">
+
+
+        <TextView
+            android:id="@+id/codeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="Código:"
+            android:layout_marginBottom="10dp"
+            android:textSize="17dp"/>
+
+        <TextView
+            android:id="@+id/code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="130dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/nameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/code"
+            android:text="Nombre:"
+            android:layout_marginBottom="10dp"
+            android:textSize="17dp"/>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/code"
+            android:layout_below="@+id/code"
+            android:layout_marginBottom="10dp"
+            android:textSize="17dp"/>
+
+        <TextView
+            android:id="@+id/municipioLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:text="Municipio:"
+            android:layout_marginBottom="10dp"
+            android:textSize="17dp"/>
+
+        <TextView
+            android:id="@+id/municipio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/name"
+            android:layout_below="@+id/name"
+            android:layout_marginBottom="10dp"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/departamentoLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/municipio"
+            android:text="Departamento:"
+            android:layout_marginBottom="10dp"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/departamento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/municipio"
+            android:layout_below="@+id/municipio"
+            android:layout_marginBottom="10dp"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/disciplinaLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/departamento"
+            android:text="Disciplina:"
+            android:layout_marginBottom="10dp"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/disciplina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/departamento"
+            android:layout_below="@+id/departamento"
+            android:layout_marginBottom="10dp"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/areaLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/disciplina"
+            android:text="Aréa:"
+            android:layout_marginBottom="10dp"
+            android:textSize="17dp"/>
+
+        <TextView
+            android:id="@+id/area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/disciplina"
+            android:layout_below="@+id/disciplina"
+            android:layout_marginBottom="10dp"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/clasificacionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/area"
+            android:text="Clasificación:"
+            android:layout_marginBottom="10dp"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/clasificacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/area"
+            android:layout_below="@+id/area"
+            android:layout_marginBottom="10dp"
+            android:textSize="17dp"/>
+
+        <TextView
+            android:id="@+id/programaLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/clasificacion"
+            android:text="Programa:"
+            android:layout_marginBottom="10dp"
+            android:textSize="17dp"/>
+
+        <TextView
+            android:id="@+id/programa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/clasificacion"
+            android:layout_below="@+id/clasificacion"
+            android:layout_marginBottom="10dp"
+            android:textSize="17dp" />
+
+    </RelativeLayout>
+</RelativeLayout>
